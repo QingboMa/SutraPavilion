@@ -40,25 +40,25 @@ http {
 
 ​	
 ​	
-	#虚拟主机（vhost）         一个server代表一个主机，一个nginx可以同时运行多个主机
-	server {
-	    listen       80; 				#监听的端口号
-	    server_name  localhost;			#域名、主机名，在hosts文件配置
-	
-	    #charset koi8-r;
-	
+​	#虚拟主机（vhost）         一个server代表一个主机，一个nginx可以同时运行多个主机
+​	server {
+​	    listen       80; 				#监听的端口号
+​	    server_name  localhost;			#域名、主机名，在hosts文件配置
+​	
+​	    #charset koi8-r;
+​	
 	    #access_log  logs/host.access.log  main;
 
 
 ​		
 ​		
-		#域名后面跟的 uri
-	    
-		location / {
-	        root   html; #相对于/usr/local/nginx目录的html
-	        index  index.html index.htm;          #默认页
-	    }
-	
+​		#域名后面跟的 uri
+​	    
+​		location / {
+​	        root   html; #相对于/usr/local/nginx目录的html
+​	        index  index.html index.htm;          #默认页
+​	    }
+​	
 	    #error_page  404              /404.html;
 	
 	    # redirect server error pages to the static page /50x.html
@@ -819,3 +819,35 @@ server {
 ```
 
 到此，就完成了。
+
+
+
+
+
+
+
+## vue项目和react项目部署nginx配置
+
+### 解决刷新后出现404的情况，或者是路由跳转不了的情况
+
+localtion中添加`try_files $uri $uri/ /index.html; #添加`
+
+或者
+
+```bash
+
+server {
+    listen       80;
+    server_name  www.helloworld.com;
+	location / {
+   		root   /usr/local/nginx/html;#vue项目的打包后的web
+   		try_files $uri $uri/ @router;#需要指向下面的@router否则会出现vue的路由在nginx中刷新出现404
+   		index  index.html index.htm;
+  	}
+  #对应上面的@router，主要原因是路由的路径资源并不是一个真实的路径，所以无法找到具体的文件
+  #因此需要rewrite到index.html中，然后交给路由在处理请求资源
+  	location @router {
+   		rewrite ^.*$ /index.html last;
+  	}
+}
+```

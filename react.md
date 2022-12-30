@@ -52,6 +52,156 @@
 
 分别使用类组件和函数式组件来记录
 
+### 嵌套路由
+
+```tsx
+import Home from "@/pages/Home";
+import { Navigate, RouteObject } from "react-router-dom";
+import Artcle from "@/pages/Home/Artcle";
+import Details from "@/pages/Home/Artcle/Details";
+import React, { lazy } from "react";
+import Login from "@/pages/Login";
+import Profile from "@/pages/Home/User/Profile/index";
+import AccountSetting from "@/pages/Home/User/AccountSetting";
+import { NotFount } from "@/pages/Error/404";
+import ModifyPhone from "@/pages/Home/User/AccountSetting/ModifPhone";
+import ModifyEmail from "@/pages/Home/User/AccountSetting/ModifyEmail";
+import ModifyPwd from "@/pages/Home/User/AccountSetting/ModifyPwd";
+import AccountWriteOff from "@/pages/Home/User/AccountSetting/AccountWriteOff";
+import MyArtcleList from "@/pages/Home/User/MyArtcleList";
+import ShowLoginHistory from "@/pages/Home/User/AccountSetting/ShowLoginHistory";
+import { createBrowserRouter, createHashRouter } from "react-router-dom";
+import User from "@/pages/Home/User";
+import Call from "@/pages/Test/Call";
+import FuncComponent from "@/pages/Test/FuncComponent";
+import ClassComponent from "@/pages/Test/ClassComponent";
+import ReduxTest from "@/pages/Test/ReduxTest/ReduxTest";
+const lazyRouter = (
+  jsxCom: JSX.Element // 路由懒加载
+) => <React.Suspense fallback={<h1>加载中</h1>}>{jsxCom}</React.Suspense>;
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to={"/login"} />,
+  },
+
+  {
+    path: "/home",
+    element: <Home />,
+    children: [
+      {
+        path: "artcle",
+        element: <Artcle />,
+      },
+      {
+        path: "artcle:artcleId",
+        element: <Details />,
+      },
+      {
+        //个人中心
+        path: "user",
+        element: <User />,
+        children: [
+          {
+            path: "accountSetting",
+            element: <Navigate to={"/home/user"} replace />,
+          },
+          //内容管理
+          {
+            path: "myArtcleList",
+            element: <MyArtcleList />,
+          },
+          // 个人资料
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/404",
+    element: <NotFount />,
+  },
+  {
+    path: "/*",
+    element: <NotFount />,
+  },
+]);
+
+export default router;
+
+```
+
+需要在父路由中使用`<Outlet/>`来指定路由出口
+
+#### 嵌套路由中的默认路由,
+
+需要添加`index:true`，并且不应该写`path:xxx`
+
+```tsx
+{
+        //个人中心
+        path: "user",
+        element: <User />,
+        children: [
+          // 账号设置
+          {
+            // path: "accountSetting",
+            element: <AccountSetting />,
+            children: [
+              {
+                index: true,
+                element: React.createElement(() => <h1>hello</h1>),
+              },
+              {
+                path: "phone/modify/:userId",
+                element: <ModifyPhone />,
+              },
+              {
+                path: "email/modify/:userId",
+                element: <ModifyEmail />,
+              },
+              {
+                path: "pwd/modify/:userId",
+                element: <ModifyPwd />,
+              },
+              {
+                path: "account/writeOff/:userId",
+                element: <AccountWriteOff />,
+              },
+              {
+                path: "showLoginHistory/:userId",
+                element: <ShowLoginHistory />,
+              },
+            ],
+          },
+          {
+            path: "accountSetting",
+            element: <Navigate to={"/home/user"} replace />,
+          },
+          //内容管理
+          {
+            path: "myArtcleList",
+            element: <MyArtcleList />,
+          },
+          // 个人资料
+          {
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
+      },
+```
+
+
+
 ### 路由参数
 
 #### params参数
@@ -269,3 +419,37 @@ UI 组件 ---> action ---> store ---> reducer ---> store
 ##### 第三个原则
 
 **纯函数执行**：每一个reducer 都是一个纯函数，不会有任何副作用，返回是一个新的 state，state 改变会触发 store 中的 subscribe
+
+
+
+## 其他 
+
+### push和reaplace区别
+
+router.push(location)
+想要导航到不同的 URL，则使用 router.push 方法。这个方法会向 history 栈添加一个新的记录，所以，当用户点击浏览器后退按钮时，则回到之前的 URL
+当你点击 时，这个方法会在内部调用，所以说，点击 等同于调用 router.push(…)。
+
+replace模式是替换模式，会替换掉栈顶的路由
+设置 replace 属性的话，当点击时，会调用 router.replace() 而不是 router.push()，于是导航后不会留下 history 记录。即使点击返回按钮也不会回到这个页面。
+
+开启方法：
+
+`\<Link replace={true} to="/about">About\</Link>`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
