@@ -27,7 +27,7 @@ docker logs -f containerid
    创建并启动minIO容器：
 
 ```bash
-docker run -p 9000:9000 -p 9090:9090 \
+docker run -p (宿主机端口 59000):9000 -p (宿主机端口 59090):9090 \
  --name myminio \
  -d --restart=always \
  -e "MINIO_ACCESS_KEY=fsvakjeh&*(GBG^&g3asd=ae2133" \
@@ -44,7 +44,7 @@ docker run -p 9000:9000 -p 9090:9090 \
 >
 > 这里的9090端口指的是minio的客户端端口。虽然设置9090，但是我们在访问9000的时候，他也会自动跳到9090。9000端口是minio的服务端端口，我们程序在连接minio的时候，就是通过这个端口来连接的。
 >
-> -v就是docker run当中的挂载，这里的/mydata/minio/data:/data意思就是将容器的/data目录和宿主机的/mydata/minio/data目录做映射，这样我们想要查看容器的文件的时候，就不需要看容器当中的文件了。
+> -v就是docker run当中的挂载，这里的`/home/maqingbo/minio/data:/data`意思就是将容器的/data目录和宿主机的`/home/maqingbo/minio/data`目录做映射，这样我们想要查看容器的文件的时候，就不需要看容器当中的文件了。
 >
 > 注意在执行命令的时候，他是会自动在宿主机当中创建目录的。我们不需要手动创建。
 >
@@ -58,7 +58,7 @@ docker run -p 9000:9000 -p 9090:9090 \
 >
 > `MINIO_SECRET_KEY` :密码 (正常账号应该不低于3位，密码不低于8位，不然容器会启动不成功)
 >
-> `--console-address` : 指定客户端端口
+> `--console-address` : 指定客户端端口，容器中的端口
 > `-d --restart=always` :代表重启linux的时候容器自动启动
 > `--name myminio` 容器名称
 
@@ -66,3 +66,6 @@ docker run -p 9000:9000 -p 9090:9090 \
 
 ![image-20230112153125195](asset/minio/pic/image-20230112153125195.png)
 
+4. 访问 http://116.204.67.7:59090/
+
+   
