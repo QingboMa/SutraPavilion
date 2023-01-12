@@ -117,3 +117,21 @@ rabbitmq-plugins enable rabbitmq_management
 `http://ip:10001`
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/dc13467501724185a6fc8d9afa5f03e3.png)
+
+
+
+
+
+## Dockerfile
+
+[java开发之Dockerfile是什么 (baidu.com)](https://baijiahao.baidu.com/s?id=1714197113181139943&wfr=spider&for=pc)
+
+
+
+```
+CMD [“java”, “-jar”, “-Xmx2048m”,"-Xms2048m", “web-site-1.0.jar”, “–server.port=8080”, “–use_proxy=false”]
+```
+
+[Docker学习——Dockerfile 指令详解（五） 顶 - 腾讯云开发者社区-腾讯云 (tencent.com)](https://cloud.tencent.com/developer/article/1369496?from=article.detail.1896312)
+
+[Docker如何对镜像进行命名_普通网友的博客-CSDN博客_dockerfile镜像名字](https://blog.csdn.net/sebeefe/article/details/126642685)
