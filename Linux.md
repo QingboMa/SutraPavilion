@@ -54,7 +54,13 @@ kill -9 进程号
 
 `netstat -nultp`
 
+## 常用命令
 
+1. 查询端口状态，pid
+
+   lsof -i:8080
+
+2. 
 
 
 
@@ -62,14 +68,14 @@ kill -9 进程号
 
 
 
-## 1、cd命令
+### 1、cd命令
 
 这是一个非常基本，也是大家经常需要使用的命令，它用于切换当前目录，它的参数是要切换到的目录的路径，可以是绝对路径，也可以是相对路径。如：
 cd /root/Docements # 切换到目录/root/Docements
 cd ./path          # 切换到当前目录下的path目录中，“.”表示当前目录  
 cd ../path         # 切换到上层目录中的path目录中，“..”表示上一层目录
 
-## 2、ls命令
+### 2、ls命令
 
 这是一个非常有用的查看文件与目录的命令，list之意，它的参数非常多，下面就列出一些我常用的参数吧，如下：
 -l ：列出长数据串，包含文件的属性与权限数据等
@@ -81,7 +87,7 @@ cd ../path         # 切换到上层目录中的path目录中，“..”表示�
 ls -l #以长数据串的形式列出当前目录下的数据文件和目录
 ls -lR #以长数据串的形式列出当前目录下的所有文件
 
-## 3、grep命令
+### 3、grep命令
 
 该命令常用于分析一行的信息，若当中有我们所需要的信息，就将该行显示出来，该命令通常与管道命令一起使用，用于对一些命令的输出进行筛选加工等等，它的简单语法为
 grep [-acinv] [--color=auto] '查找字符串' filename
@@ -101,7 +107,7 @@ grep --color=auto 'MANPATH' /etc/man.config
 
 ls -l | grep -i file
 
-## 4、find命令
+### 4、find命令
 
 find是一个基于查找的功能非常强大的命令，相对而言，它的使用也相对较为复杂，参数也比较多，所以在这里将给把它们分类列出，它的基本语法如下：
 find [PATH] [option] [action]
@@ -144,7 +150,7 @@ find / -name passwd # 查找文件名为passwd的文件
 find . -perm 0755 # 查找当前目录中文件权限的0755的文件
 find . -size +12k # 查找当前目录中大于12KB的文件，注意c表示byte
 
-## 5、cp命令
+### 5、cp命令
 
 该命令用于复制文件，copy之意，它还可以把多个文件一次性地复制到一个目录下， 它的常用参数如下：
 -a ：将文件的特性一起复制
@@ -156,7 +162,7 @@ find . -size +12k # 查找当前目录中大于12KB的文件，注意c表示byte
 cp -a file1 file2 #连同文件的所有特性把文件file1复制成文件file2
 cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
 
-## 6、mv命令
+### 6、mv命令
 
 该命令用于移动文件、目录或更名，move之意，它的常用参数如下：
 -f ：force强制的意思，如果目标文件已经存在，不会询问而直接覆盖
@@ -168,7 +174,7 @@ cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中
 mv file1 file2 file3 dir # 把文件file1、file2、file3移动到目录dir中
 mv file1 file2 # 把文件file1重命名为file2
 
-## 7、rm命令
+### 7、rm命令
 
 该命令用于删除文件或目录，remove之间，它的常用参数如下：
 -f ：就是force的意思，忽略不存在的文件，不会出现警告消息
@@ -190,7 +196,7 @@ ps ax # 查看不与terminal有关的所有进程
 ps -lA # 查看系统所有的进程数据
 ps axjf # 查看连同一部分进程树状态
 
-## 9、kill命令
+### 9、kill命令
 
 该命令用于向某个工作（%jobnumber）或者是某个PID（数字）传送一个信号，它通常与ps和jobs命令一起使用，它的基本语法如下：
 kill -signal PID
@@ -211,7 +217,7 @@ kill -SIGTERM %1
 
 kill -SIGHUP PID
 
-## 10、killall命令
+### 10、killall命令
 
 该命令用于向一个命令启动的进程发送一个信号，它的一般语法如下：
 killall [-iIe] [command name]
@@ -224,14 +230,14 @@ killall [-iIe] [command name]
 
 killall -SIGHUP syslogd # 重新启动syslogd
 
-## 11、file命令
+### 11、file命令
 
 该命令用于判断接在file命令后的文件的基本数据，因为在Linux下文件的类型并不是以后缀为分的，所以这个命令对我们来说就很有用了，它的用法非常简单，基本语法如下：
 file filename
 #例如：
 file ./test
 
-## 12、tar命令
+### 12、tar命令
 
 该命令用于对文件进行打包，默认情况并不会压缩，如果指定了相应的参数，它还会调用相应的压缩程序（如gzip和bzip等）进行压缩和解压。它的常用参数如下：
 -c ：新建打包文件
@@ -248,14 +254,14 @@ file ./test
 解压：tar -jxv -f filename.tar.bz2 -C 欲解压缩的目录
 注：文件名并不定要以后缀tar.bz2结尾，这里主要是为了说明使用的压缩程序为bzip2
 
-## 13、cat命令
+### 13、cat命令
 
 该命令用于查看文本文件的内容，后接要查看的文件名，通常可用管道与more和less一起使用，从而可以一页页地查看数据。例如：
 cat text | less # 查看text文件中的内容
 
 注：这条命令也可以使用less text来代替
 
-## 14、chgrp命令
+### 14、chgrp命令
 
 该命令用于改变文件所属用户组，它的使用非常简单，它的基本用法如下：
 chgrp [-R] dirname/filename
@@ -265,11 +271,11 @@ chgrp [-R] dirname/filename
 
 chgrp users -R ./dir # 递归地把dir目录下中的所有文件和子目录下所有文件的用户组修改为users
 
-## 15、chown命令
+### 15、chown命令
 
 该命令用于改变文件的所有者，与chgrp命令的使用方法相同，只是修改的文件属性不同，不再详述。
 
-## 16、chmod命令
+### 16、chmod命令
 
 该命令用于改变文件的权限，一般的用法如下：
 chmod [-R] xyz 文件或目录
@@ -281,11 +287,11 @@ chmod [-R] xyz 文件或目录
 chmod 0755 file # 把file的文件权限改变为-rxwr-xr-x
 chmod g+w file # 向file的文件权限中加入用户组可写权限
 
-## 18、vim命令
+### 18、vim命令
 
 该命令主要用于文本编辑，它接一个或多个文件名作为参数，如果文件存在就打开，如果文件不存在就以该文件名创建一个文件。vim是一个非常好用的文本编辑器，它里面有很多非常好用的命令，在这里不再多说。你可以从这里下载 vim常用操作 的详细说明。
 
-## 19、gcc命令
+### 19、gcc命令
 
 对于一个用Linux开发C程序的人来说，这个命令就非常重要了，它用于把C语言的源程序文件，编译成可执行程序，由于g++的很多参数跟它非常相似，所以这里只介绍gcc的参数，它的常用参数如下：
 -o ：output之意，用于指定生成一个可执行文件的文件名
@@ -305,7 +311,7 @@ gcc -o test test.c -lm -std=c99
 #把源文件test.c转换为相应的汇编程序源文件test.s
 gcc -S test.c
 
-## 20、time命令
+### 20、time命令
 
 该命令用于测算一个命令（即程序）的执行时间。它的使用非常简单，就像平时输入命令一样，不过在命令的前面加入一个time即可，例如：
 time ./process
