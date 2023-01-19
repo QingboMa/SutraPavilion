@@ -2,7 +2,7 @@
 
 # React
 
-## 组件传参
+## 组件传参js
 
 ### 父传子
 
@@ -86,9 +86,100 @@ export default App;
 
 
 
+## 组件传参ts
+
+### 方式一
+
+子组件需要接收一个`HeroLegend[]`数组的参数，并且该`参数可有可无`
+
+```tsx
+import axios from 'axios'
+import React, { useEffect } from 'react'
+import { HeroLegend } from 'typings';
+
+const Legend = ({ legend }: { legend?: HeroLegend[] | undefined }) => {
+    console.log(legend);
+
+    return (
+        <div>Legend</div>
+    )
+}
+export default Legend;
+```
 
 
 
+父组件中使用
+
+```tsx
+< Legend legend={legend.current} />
+```
+
+`legend.current是HeroLegend[]类型的数据`
+
+### 方式二
+
+```tsx
+import axios from 'axios'
+import React, { useEffect } from 'react'
+import { HeroLegend } from 'typings';
+
+const Legend = (props: { legend?: HeroLegend[] | undefined }) => {
+    console.log(props.legend);
+
+    return (
+        <div>Legend</div>
+    )
+}
+export default Legend;
+```
+
+父组件中使用
+
+```tsx
+< Legend legend={legend.current} />
+```
+
+`legend.current是HeroLegend[]类型的数据`
+
+### 方式三
+
+```tsx
+import axios from 'axios'
+import React, { useEffect } from 'react'
+import { HeroLegend } from 'typings';
+interface HeroLegendProps {
+    legend: HeroLegend[] | undefined
+}
+const Legend: React.FC<HeroLegendProps> = (props) => {
+    console.log(props.legend);
+
+    return (
+        <div>Legend</div>
+    )
+}
+export default Legend;
+```
+
+### 方式四
+
+还是方式三的形式，不过是将参数解构出来
+
+```tsx
+import axios from 'axios'
+import React, { useEffect } from 'react'
+import { HeroLegend } from 'typings';
+interface HeroLegendProps {
+    legend: HeroLegend[] | undefined
+}
+const Legend: React.FC<HeroLegendProps> = ({ legend }) => {
+    console.log(legend);
+    return (
+        <div>Legend</div>
+    )
+}
+export default Legend;
+```
 
 
 
