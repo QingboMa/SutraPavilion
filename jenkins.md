@@ -23,7 +23,7 @@ http://mirrors.jenkins.io/war-stable/latest/jenkins.war
 
 
 ```bash
-docker run -d --name my-jenkins -p 59999:8080 -p 59998:5000 --restart always   jenkins/jenkins
+docker run -d --name my-jenkins -p 59999:8080 -p 59998:5000 -v /usr/local/maven:/usr/local/maven -v /etc/localtime:/etc/localtime --restart always   jenkins/jenkins
 ```
 
 进入容器
@@ -36,8 +36,40 @@ docker exec -it a7 /bash/bin
 
 管理员：admin
 
-3d3b67458d9f4401a086252bda26c3bb
+92fddf6de7044d82aac9ded6b9033d6d
 
 账号 maqingbo
 
 密码 vnewihbdsldjq^@53gc238r7g
+
+
+
+## 自动化构建
+
+### gitee插件
+
+去插件管理下载gitee插件
+
+### 新建job
+
+在job的构建触发器使用	`Gitee webhook 触发构建`
+
+
+
+![image-20230120161502838](asset/jenkins/pic/image-20230120161502838.png)
+
+
+
+![image-20230120161607682](asset/jenkins/pic/image-20230120161607682.png)
+
+并在gitee的项目管理中配置`Gitee webhook` 以及生成的密码
+
+![image-20230120161618764](asset/jenkins/pic/image-20230120161618764.png)
+
+每当master代码有变动之后就会触发jenkins自动构建
+
+### 改动master分支代码
+
+![image-20230120161847072](asset/jenkins/pic/image-20230120161847072.png)
+
+会自动触发构建
