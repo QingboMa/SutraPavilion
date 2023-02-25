@@ -42,8 +42,6 @@ docker exec -it a7 /bash/bin
 
 密码 vnewihbdsldjq^@53gc238r7g
 
-
-
 ## 自动化构建
 
 ### gitee插件
@@ -54,9 +52,9 @@ docker exec -it a7 /bash/bin
 
 在job的构建触发器使用	`Gitee webhook 触发构建`
 
+![image-20230218192731649](asset/jenkins/pic/image-20230218192731649.png)
 
 
-![image-20230120161502838](asset/jenkins/pic/image-20230120161502838.png)
 
 
 
@@ -64,7 +62,9 @@ docker exec -it a7 /bash/bin
 
 并在gitee的项目管理中配置`Gitee webhook` 以及生成的密码
 
-![image-20230120161618764](asset/jenkins/pic/image-20230120161618764.png)
+
+
+![image-20230218193301494](asset/jenkins/pic/image-20230218193301494.png)
 
 每当master代码有变动之后就会触发jenkins自动构建
 
